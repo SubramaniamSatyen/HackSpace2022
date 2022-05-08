@@ -9,22 +9,97 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { Buttons } from '../components/Buttons';
+import React, { Component } from "react";
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  return (
-    
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One Title</Text>
-      <Buttons></Buttons>
-      {/* <Button onPress={() => Alert.alert("button:)")}><Icon name='grin-beam' size={100} color ="#00FF00"></Icon></Button>
-      <Button onPress={() => Alert.alert("button:)")}><Icon name='sad-tear' size={100} color ="#0000FF"></Icon></Button>
-      <Button onPress={() => Alert.alert("button:)")}><Icon name='surprise' size={100} color ="#FFFF00"></Icon></Button>
-      <Button onPress={() => Alert.alert("button:)")}><Icon name='angry' size={100} color ="#FF0000"></Icon></Button> */}
-      {/* <Icon name='grin-beam' size={100} color ="#0000FF"></Icon> */}
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
-  );
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBC1D8VU16LRpoNNOEo_lgNM_FSB8fU7Qs",
+  authDomain: "hackspace-2022.firebaseapp.com",
+  projectId: "hackspace-2022",
+  storageBucket: "hackspace-2022.appspot.com",
+  messagingSenderId: "517232305599",
+  appId: "1:517232305599:web:15d1b0cbd53ca4487e6d0a",
+  measurementId: "G-H4SXND7LB7"
+};
+
+initializeApp(firebaseConfig);
+
+const firestore = getFirestore();
+
+// export default function TabOneScreen() {
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.title}>Tab One Title</Text>
+//       <Buttons ></Buttons>
+//       <Button onPress={() => logDatabase('username', 'history')}><Icon name='check' size = {40} color = "000000"></Icon></Button>
+//       {/* <Button onPress={() => Alert.alert("button:)")}><Icon name='grin-beam' size={100} color ="#00FF00"></Icon></Button>
+//       <Button onPress={() => Alert.alert("button:)")}><Icon name='sad-tear' size={100} color ="#0000FF"></Icon></Button>
+//       <Button onPress={() => Alert.alert("button:)")}><Icon name='surprise' size={100} color ="#FFFF00"></Icon></Button>
+//       <Button onPress={() => Alert.alert("button:)")}><Icon name='angry' size={100} color ="#FF0000"></Icon></Button> */}
+//       {/* <Icon name='grin-beam' size={100} color ="#0000FF"></Icon> */}
+//       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+//       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+//     </View>
+//   );
+// }
+
+export default class TabOneScreen extends Component{
+  constructor(props){
+    super(props);
+  }
+
+  state =  {
+    history: [{
+        reaction: 'Start',
+        time: new Date().getTime(),
+    }],
+    userName: 'Temp_Name',
+    stepNum: 1,
+    duration: 0,
+  }
+
+  logLocal(reactionType: string){
+    const history = this.state.history;
+    this.setState({
+      history: history.concat([{
+        reaction: reactionType,
+        time: new Date().getTime(),
+      }]),
+      stepNum: history.length,
+    });
+  }
+
+  logDatabase(){
+    // setDoc(doc(firestore, "testCollection", "testDocument: " + Date()), {
+    //   field1: "val1",
+    //   field2: "val2",
+    //   field3: "val3"
+    // });
+    setDoc(doc(firestore, "recordingData", this.state.userName), {
+      history: this.state.history,
+    });
+    console.log("Database logged!");
+  }
+
+  render(){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Tab One Title</Text>
+        <Buttons logLocal={this.logLocal.bind(this)}></Buttons>
+        <Button onPress={() => this.logDatabase()}><Icon name='check' size = {40} color = "000000"></Icon></Button>
+        {/* <Button onPress={() => Alert.alert("button:)")}><Icon name='grin-beam' size={100} color ="#00FF00"></Icon></Button>
+        <Button onPress={() => Alert.alert("button:)")}><Icon name='sad-tear' size={100} color ="#0000FF"></Icon></Button>
+        <Button onPress={() => Alert.alert("button:)")}><Icon name='surprise' size={100} color ="#FFFF00"></Icon></Button>
+        <Button onPress={() => Alert.alert("button:)")}><Icon name='angry' size={100} color ="#FF0000"></Icon></Button> */}
+        {/* <Icon name='grin-beam' size={100} color ="#0000FF"></Icon> */}
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      </View>
+    );
+    }
 }
 
 const styles = StyleSheet.create({
