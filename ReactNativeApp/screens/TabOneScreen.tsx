@@ -1,7 +1,7 @@
 import { EvilIcons } from '@expo/vector-icons';
 import { Alert, StyleSheet} from 'react-native';
 // import { Button } from '@rneui/themed';
-import { Button } from 'react-native-paper'
+import { Button, TextInput } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
@@ -12,8 +12,8 @@ import { Buttons } from '../components/Buttons';
 import React, { Component } from "react";
 
 
-import { initializeApp } from 'firebase/app';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
+ import { initializeApp } from 'firebase/app';
+ import { getFirestore, setDoc, doc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBC1D8VU16LRpoNNOEo_lgNM_FSB8fU7Qs",
@@ -78,7 +78,7 @@ export default class TabOneScreen extends Component{
     //   field2: "val2",
     //   field3: "val3"
     // });
-    setDoc(doc(firestore, "recordingData", this.state.userName), {
+    setDoc(doc(firestore, "recordingData", "skkdjls"), {
       history: this.state.history,
     });
     console.log("Database logged!");
@@ -97,6 +97,10 @@ export default class TabOneScreen extends Component{
         {/* <Icon name='grin-beam' size={100} color ="#0000FF"></Icon> */}
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+        <Text>Name of Recording:</Text>
+            <TextInput 
+                style ={styles.input}
+                placeholder = "Enter Here" />
       </View>
     );
     }
