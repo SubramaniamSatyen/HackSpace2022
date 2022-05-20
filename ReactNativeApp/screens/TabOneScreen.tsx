@@ -9,7 +9,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { Buttons } from '../components/Buttons';
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 
  import { initializeApp } from 'firebase/app';
@@ -25,41 +25,33 @@ const firebaseConfig = {
   measurementId: "G-H4SXND7LB7"
 };
 
+
 initializeApp(firebaseConfig);
 
 const firestore = getFirestore();
 
-// export default function TabOneScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Tab One Title</Text>
-//       <Buttons ></Buttons>
-//       <Button onPress={() => logDatabase('username', 'history')}><Icon name='check' size = {40} color = "000000"></Icon></Button>
-//       {/* <Button onPress={() => Alert.alert("button:)")}><Icon name='grin-beam' size={100} color ="#00FF00"></Icon></Button>
-//       <Button onPress={() => Alert.alert("button:)")}><Icon name='sad-tear' size={100} color ="#0000FF"></Icon></Button>
-//       <Button onPress={() => Alert.alert("button:)")}><Icon name='surprise' size={100} color ="#FFFF00"></Icon></Button>
-//       <Button onPress={() => Alert.alert("button:)")}><Icon name='angry' size={100} color ="#FF0000"></Icon></Button> */}
-//       {/* <Icon name='grin-beam' size={100} color ="#0000FF"></Icon> */}
-//       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-//       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-//     </View>
-//   );
-// }
-
-export default class TabOneScreen extends Component{
+export default class TabOneScreen extends React.Component<any,any>{
   constructor(props){
     super(props);
+    this.state =  {
+      history: [{
+          reaction: 'Start',
+          time: new Date().getTime(),
+      }],
+      userName: 'Temp_Name',
+      stepNum: 1,
+      duration: 0,
+    }
   }
-
-  state =  {
-    history: [{
-        reaction: 'Start',
-        time: new Date().getTime(),
-    }],
-    userName: 'Temp_Name',
-    stepNum: 1,
-    duration: 0,
-  }
+  // state =  {
+  //   history: [{
+  //       reaction: 'Start',
+  //       time: new Date().getTime(),
+  //   }],
+  //   userName: 'Temp_Name',
+  //   stepNum: 1,
+  //   duration: 0,
+  // }
 
   logLocal(reactionType: string){
     const history = this.state.history;
@@ -78,7 +70,7 @@ export default class TabOneScreen extends Component{
     //   field2: "val2",
     //   field3: "val3"
     // });
-    setDoc(doc(firestore, "recordingData", "skkdjls"), {
+    setDoc(doc(firestore, "recordingData", this.state.userName), {
       history: this.state.history,
     });
     console.log("Database logged!");
@@ -88,6 +80,14 @@ export default class TabOneScreen extends Component{
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Tab One Title</Text>
+        <Text>Name of Recording:</Text>
+        <TextInput 
+            style ={styles.input}
+            placeholder = "Enter Here"
+            onChangeText={(userName) => this.setState({userName})}
+        />
+    <Text>Username: {this.state.userName}</Text> 
+        {/* <UsernameSetup /> */}
         <Buttons logLocal={this.logLocal.bind(this)}></Buttons>
         <Button onPress={() => this.logDatabase()}><Icon name='check' size = {40} color = "000000"></Icon></Button>
         {/* <Button onPress={() => Alert.alert("button:)")}><Icon name='grin-beam' size={100} color ="#00FF00"></Icon></Button>
@@ -97,10 +97,6 @@ export default class TabOneScreen extends Component{
         {/* <Icon name='grin-beam' size={100} color ="#0000FF"></Icon> */}
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-        <Text>Name of Recording:</Text>
-            <TextInput 
-                style ={styles.input}
-                placeholder = "Enter Here" />
       </View>
     );
     }
@@ -121,4 +117,16 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+
+  input:{
+    backgroundColor: '777',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 10,
+    width: 250,
+    height: 30,
+    padding: 10,
+    margin: 10,
+
+  }
 });
