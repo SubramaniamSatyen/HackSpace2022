@@ -13,6 +13,7 @@ import HomePage from './screens/HomePage'
 import TabOneScreen from './screens/TabOneScreen';
 import TabTwoScreen from './screens/TabTwoScreen';
 import SaveRecording from './screens/SaveRecording';
+import PlayerScreen from './screens/PlayerScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomePage}/>
         <Stack.Screen name="Record" component={TabOneScreen} />
         <Stack.Screen name="View" component={TabTwoScreen} />
+        <Stack.Screen name="Watch" component={PlayerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
