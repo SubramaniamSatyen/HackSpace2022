@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button:{
-        borderRadius: 10,
-        width: 150,
+        borderRadius: 35,
+        width: 180,
         marginBottom: 15,
         paddingVertical: 10,
         paddingHorizontal: 10,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: 25,
         textAlign:'center',
     },
 })
