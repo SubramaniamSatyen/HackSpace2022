@@ -18,9 +18,6 @@ const HomePage = ({navigation}:{navigation: any}) => {
             <div>
                 <img src = {AppLogo} width = '250px'/>
             </div>
-            {/* <Button onPress={()=> navigation.navigate('View')} title = 'View'></Button>
-            <Button onPress={()=> navigation.navigate('Record')} title = 'Record'></Button> */}
-
             <CustomButton text = 'View'  onPress={()=> navigation.navigate('View')} />
             <CustomButton text = 'Record'  onPress={()=> navigation.navigate('Record')} />
         </View>

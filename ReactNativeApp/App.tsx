@@ -12,7 +12,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './screens/HomePage'
 import TabOneScreen from './screens/TabOneScreen';
 import TabTwoScreen from './screens/TabTwoScreen';
-import SaveRecording from './screens/SaveRecording';
 import PlayerScreen from './screens/PlayerScreen';
 
 const Stack = createNativeStackNavigator();
@@ -25,10 +24,66 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomePage}/>
-        <Stack.Screen name="Record" component={TabOneScreen} />
-        <Stack.Screen name="View" component={TabTwoScreen} />
-        <Stack.Screen name="Watch" component={PlayerScreen} />
+        <Stack.Screen 
+          name = "Home" 
+          component={HomePage}
+          options = {{
+            title: 'ReactWithMe',
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontFamily: 'Phosphate',
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}/>
+        <Stack.Screen 
+          name="Record" 
+          component={TabOneScreen} 
+          options = {{
+            title: 'Record',
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontFamily: 'Phosphate',
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}/>
+        <Stack.Screen 
+        name="View" 
+        component={TabTwoScreen}
+        options = {{
+          title: 'View',
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontFamily: 'Phosphate',
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+        }}/>
+        <Stack.Screen 
+          name="Watch" 
+          component={PlayerScreen} 
+          options = {{
+            title: 'Watch',
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontFamily: 'Phosphate',
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
