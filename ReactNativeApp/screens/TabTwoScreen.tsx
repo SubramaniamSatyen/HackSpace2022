@@ -159,7 +159,7 @@ const TabTwoScreen = ({navigation}:{navigation: any}) => {
     console.log(data_state[index]);
     const watchData = data_state[index];
     //Render the next page with this data
-    navigation.navigate('Watch', watchData);
+    navigation.navigate('Watch', {watchData});
     // const navigation = useNavigation();
     // navigation.navigate('PlayerScreen');
 
