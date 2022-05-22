@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, View, Text, Button} from 'react-native'
-import AppLogo from '../images/HackSpaceLogo.png';
+import AppLogo from '../images/logo.png';
 
 const CustomButton=({text, onPress}) => {
     return(
